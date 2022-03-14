@@ -1,0 +1,68 @@
+__Protocol oriented Programming nedir?__ 
+
+-Bir protokol, belirli bir göreve veya işlevsellik parçasına uyan yöntemlerin, özelliklerin ve diğer gereksinimlerin bir planını tanımlar. Bu swiftin bize verdiği tanımlama.
+
+-Ortak olan özellikleri tek tek hepsine yazmamak ve kısıtlama getirmek için kullanılabilir genel olarak protokoller. 
+
+
+___Playground___
+
+-Daha iyi anlayabilmek için playground üzerinde bir kod yazdım aynı işlevi hem oop hem pop ile nasıl yapabildiğimizi görmek için.
+
+- Diyelim ki bir oyun yapmak istiyoruz ve bu oyunda düşmanlarımız var, karada ve cehennemde çatıştığımız düşmanlar bunlar. Ortak özellikleri isimlerinin olması, yürümeleri ve saldırabilmeleri.
+
+-Creature classımızda bunu tanımlayıp inehrit aldığmız zaman oynumuzu yapmış oluyoruz. her şey çok güzel.
+
+- Fakat daha sonrasında oyuna eklenti paketi geliyor ve hava düşmanları ekleniyor fakat şöyle bir sıkıntı var hava düşmanları yürüyemiyor, uçabiliyorlar. Creature classımızdan inherit etseler walk özellikleri de olacak, bu sebele bir kaç değişiklik yapmamız lazım. Override edip fataleror verebiliriz walk fonksiyonuna veya walk fonksiyonu land ve hell e yazabiliriz aynı fonksiyon tekrar edicek bu durumda, bunun gittiği yeri görebiliyor musunuz bu şekilde devam ederse her yeni gelen class için tek tek ve bazen de aynı fonksiyonları yazmamız gerekicek, bu gibi eklentiler ile temiz kod kavramından uzaklaşmış oluyoruz yavaş yavaş.
+
+-Şimdi dragon classımızın da geldiğini düşünelim ve Creature classımızdan inherit edecekler hepsi. Creature classmız artık sadece isim ve saldırı fonsksiyonunu taşıyor Ve geri kalan fonksiyonları tek tek yazmamız lazım hepsinin içine, ortak olan özellikler olsa bile mesela yürüme özelliği hem land hem hell creature'ımızda var fakat sky creature ımızda yok bu yüzden tek tek yazmamız lazım fonksiyonları hepsinin içine, çünkü multiple inheritance özelliğimiz yok bildiğiniz gibi.
+
+- Bu şekilde yaptığımız zaman hızlı bir şekilde ilerleme kaydediyoruz gibi gözüküyor. Ama yeni gelicek bir eklenti için bu sefer bir daha işlem yapmamız gerekiyor.
+
+- Şimdi bir de P.O.P ye bakalım. Burda da düşmanlarımız var, bu sefer hepsinin özellikleri için tek tek protokoller oluşturuyoruz. Bu özelliklerin içini protokollere extensionla dolduruyoruz. Daha sonrasında tek yapmamız gereken hangi creature ın hangi özelliği aldığını implement etmek
+
+-Ve bu şekilde oyunun temelini yazmak uzun sürse bile devamında daha rahat ilerlemiş oluyoruz.
+
+
+__POP pin faydalı tarafları:___
+
+- Protocol inheritance: Bildiğiniz gibi Swift de multiple inheritance yok fakat protocol inheritance var. Istediğimiz özelliklerin hepsini bir class a tek tek yazıp God Class oluşturmamak için bu özellikleri protocoller ile verebiliyoruz.
+
+--God Class--
+-resimden de anlayacağınız üzere, MVC mimarisinde Controller'da, MVVM'de ViewModel'de görebileceğimiz bir classın birden fazla işi yapmasıyla geldiği hale deniyor. İstemediğimiz bir şey. Bu da bizi ikinci faydaya yani Temiz kodlamaya götürüyor.
+
+- Clean Code ( dependency injection ): Temiz kodlama bildiğiniz gibi Solid prensipleri doğrultusunda uygulamanın uzun vadede sürdürülebilir olmasını hem de okunabilirliğini arttırmak uymamız gereken kurallarla birlikte ortaya çıkan bir kodlama aslında. POP bu açıdan baktığımız zaman OOP'ye nazaran buna daha çok olanak sağladığını söyleyebiliriz.
+
+
+- Inheritance in value Types: P.O.P. nin üçüncü faydası da Inheritance in Value types. Bildiğiniz gibi value typeların inheritance özelliği yok ama protokollerden inherit edebiliyorlar. Bu da aslına bakarsanız, projenin istekleri doğrultusunda kullandığımız struct olsun enum olsun buralara implement ediceğimiz protokollerle yine işimizi daha kolaylaştırcak ve yine temiz kodlamaya yardımcı olabilcek çok önemli bir özellik.
+
+
+___Peki P.O.P. nin riskli yanları nelerdir___
+
+---GÖreceli olarak daha yavaş geliştirme süreci---
+* Protokol odaklı paradigma(model), yapının çok fazla yatay büyümesine neden olabilir. İlerleyemiyormuş hissi oluşturabilir. Ama ben bunu temelini sağlam atmak olarak görüyorum açıkçası.
+
+---Dikkatli takip edilmez ise düzenin bozulması riski--
+*Çok sayıda küçük protokol oluşturmanın neden olduğu aşırı çoğalma, uygulamanın bakımını ve kullanımını zor ve can sıkıcı hale getirecektir. Elbette, hangi sınıflara hangi uygunlukların eklendiğinin izini kaybetmemek için, projede düzenin korunmasını da gerektirir.
+
+---Değişiklik yapmanın zor olması---
+*Protocol oriented da bizim de Aysun'la çok çektiğimiz gibi bir parametre değiştirmek için her şeyi değiştirmek gerekebiliyor, bunlar da yorucu olabiliyor. Her iyi şeyin bir bedeli olduğu gibi protocollerin de bedeli bu diye düşünüyorum ben.
+
+
+
+___Conclusion___
+-Object oriented a baktığımız zaman, objenin ne olduğunu tanımlayıp onun üzerine devam ederiz. Protocol orianted ise daha çok objelerin neler yapabildiğine, davranışlarına odaklanırız.
+
+Object-orianted direkt sonuç odaklı olduğu için daha basit ve rahat gözükebilir. Ancak,bu palyground üzerinden yaptığımız bu basit oyunda bile, projede erken safhada yapılması gereken birçok önemli kararla mücadele ettik. İlerleyen zamanlarda bunlar daha karmaşık hale geldiği zaman uğraşması zor bir hale gelebilir.
+
+Ben protocol oriented programming'ı object oriented ın yerini almalı gibi değil daha çok bir eklenti gibi görüyorum. İkisi birlikte kullanıldığı zaman daha etkili olduğunu ve istediğimiz sonuca bizi daha doğru bir yöntemle ulaştırcağını düşünüyorum. Teşekkürler dinlediğiniz için benim sunumum bu kadardı.
+
+
+
+
+__References__
+
+* https://medium.com/swlh/protocol-oriented-programming-benefits-2910e3c86c7b
+* https://tsh.io/blog/protocol-oriented-programming-swift/
+* https://medium.com/geekculture/swift-5-how-protocol-oriented-programming-saves-your-apps-part-1-714db7d41b98
+* https://docs.swift.org/swift-book/LanguageGuide/Protocols.html
